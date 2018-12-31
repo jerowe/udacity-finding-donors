@@ -5,7 +5,7 @@ executors:
       machine: true
 
 jobs:
-  build-flask-app:
+  build:
     executor: machine
     steps:
       - checkout
