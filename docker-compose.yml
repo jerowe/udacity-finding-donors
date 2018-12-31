@@ -10,12 +10,51 @@ version: '3'
 
 services:
 
-    udacity-finding-donors-server:
-      hostname: jerowe-finding-donors-server
-      build:
-        context: finding_donors_flask_app
-        dockerfile: Dockerfile
-      environment:
-        DONOR_DATA: /home/flask/finding_donors_flask_app/materials/census.csv
-      ports:
-        - "5000:5000"
+  traefik-manager:
+    image: traefik:1.5-alpine
+    restart: always
+    command: |
+      --web --logLevel=info \
+      --docker --docker.domain="localhost" --docker.endpoint="unix:///var/run/docker.sock" \
+      --docker.watch=true --docker.exposedbydefault="false"
+    container_name: traefik
+    labels:
+      - traefik.frontend.entryPoints=http
+      - traefik.frontend.rule=Host:traefik.docker.localhost
+      - traefik.port=8080
+      - traefik.enable=true
+    networks:
+      - internal
+      - proxy
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  udacity-finding-donors-server:
+    hostname: jerowe-finding-donors-server
+    build:
+      context: finding_donors_flask_app
+      dockerfile: Dockerfile
+    environment:
+      DONOR_DATA: /home/flask/finding_donors_flask_app/materials/census.csv
+    ports:
+      - "5000:5000"
+    labels:
+      - traefik.backend=udacity-finding-donors-server
+      - traefik.frontend.entryPoints=http,https
+      - traefik.frontend.rule=PathPrefixStrip:/server;Host:localhost
+      - traefik.docker.network=proxy
+      - traefik.port=5000
+      - traefik.enable=true
+    networks:
+      - internal
+      - proxy
+
+networks:
+  proxy:
+    driver: bridge
+  internal:
+    external: false

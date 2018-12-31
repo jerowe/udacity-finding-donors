@@ -9,4 +9,4 @@ jobs:
     executor: machine
     steps:
       - checkout
-      - run: echo "A first hello"
+      - run: docker-compose build

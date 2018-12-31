@@ -11,7 +11,6 @@ WORKDIR /home/flask
 RUN mkdir -p finding_donors_flask_app
 
 WORKDIR /home/flask/finding_donors_flask_app
-RUN mkdir -p data
 
 COPY . ./
 RUN conda env create -f environment.yml
