@@ -1,0 +1,21 @@
+version: '3'
+
+# Run as
+# docker-compose build; docker-compose up -d
+# Check with
+# docker ps
+# Then check the logs with
+# docker logs --tail 50 $container_id
+# docker-compose logs --tail 20 tf_counts
+
+services:
+
+    udacity-finding-donors-server:
+      hostname: jerowe-finding-donors-server
+      build:
+        context: finding_donors_flask_app
+        dockerfile: Dockerfile
+      environment:
+        DONOR_DATA: /home/flask/finding_donors_flask_app/materials/census.csv
+      ports:
+        - "5000:5000"

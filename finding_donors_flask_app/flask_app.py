@@ -15,7 +15,7 @@ def apply_caching(response):
     return response
 
 
-@app.route('/hello', methods=['POST'])
+@app.route('/health', methods=['POST'])
 def hello():
     data = json.loads(request.data.decode('utf-8'))
     return jsonify(data)
