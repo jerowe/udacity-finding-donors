@@ -1,6 +1,5 @@
 version: 2
 jobs:
-  build:
     build:
       machine: true
     steps:
