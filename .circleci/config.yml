@@ -1,5 +1,7 @@
 version: 2
+
 jobs:
+  build-flask-app:
     build:
       machine: true
     steps:
