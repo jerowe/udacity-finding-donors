@@ -1,0 +1,16 @@
+name: finding-donors
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.6
+  - flask-cors
+  - flask-restful
+  - scipy
+  - matplotlib
+  - scikit-learn
+  - numpy
+  - pandas
+  - ipython
+  - gunicorn
+  - jupyterhub
