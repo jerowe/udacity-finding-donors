@@ -2,7 +2,6 @@ version: 2
 
 executors:
   machine:
-    build:
       machine: true
 
 jobs:
