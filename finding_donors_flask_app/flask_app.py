@@ -4,9 +4,15 @@ from flask_cors import CORS
 import json
 import functools
 
+from .data_bp import data_bp
+from .model_bp import model_bp
+
 app = Flask(__name__)
-CORS(app, allow_headers=['Content-Type', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Headers',
-                         'Access-Control-Allow-Methods'])
+CORS(app, allow_headers=['Content-Type', 'Access-Control-Allow-Origin',
+                         'Access-Control-Allow-Headers', 'Access-Control-Allow-Methods'])
+
+app.register_blueprint(data_bp)
+app.register_blueprint(model_bp)
 
 
 @app.after_request

@@ -13,7 +13,7 @@ jobs:
       - run: docker-compose up -d
       - run: |
           curl -X POST \
-          http://localhost/server \
+          http://localhost/server/health \
           -H 'Cache-Control: no-cache' \
           -H 'Content-Type: application/json' \
           -d '{"hello": "world"}'
