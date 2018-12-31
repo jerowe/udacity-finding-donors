@@ -15,6 +15,8 @@ def apply_caching(response):
     return response
 
 
+# These are just some health/server is up checks
+
 @app.route('/', methods=['GET'])
 def enter():
     return jsonify({'status': 'ok'})

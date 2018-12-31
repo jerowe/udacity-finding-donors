@@ -10,3 +10,10 @@ jobs:
     steps:
       - checkout
       - run: docker-compose build
+      - run: docker-compose up -d
+      - run: |
+          curl -X POST \
+          http://localhost/server \
+          -H 'Cache-Control: no-cache' \
+          -H 'Content-Type: application/json' \
+          -d '{"hello": "world"}'
