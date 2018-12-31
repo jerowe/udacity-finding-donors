@@ -1,9 +1,13 @@
 version: 2
 
-jobs:
-  build-flask-app:
+executors:
+  machine:
     build:
       machine: true
+
+jobs:
+  build-flask-app:
+    executor: machine
     steps:
       - checkout
       - run: echo "A first hello"
