@@ -18,12 +18,17 @@ CI is at at [CircleCI](https://circleci.com/gh/jerowe/udacity-finding-donors)
 docker-compose up --build -d
 ```
 
+There are two health methods up. They don't actually do anything besides verify the server is hunky dory.
+
 ```
 curl -X POST \
     http://localhost:5000/health \
     -H 'Cache-Control: no-cache' \
     -H 'Content-Type: application/json' \
     -d '{"hello": "world"}'
+```
+
+```
 curl -X GET \
     http://localhost:5000\
     -H 'Cache-Control: no-cache'

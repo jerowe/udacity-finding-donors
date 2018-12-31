@@ -1,0 +1,14 @@
+<h2>Data Exploration</h2>
+
+<div *ngIf="rowData">
+  <ag-grid-angular
+    style="width: 500px; height: 500px;"
+    class="ag-theme-balham"
+    [rowData]="rowData"
+    [pagination]="true"
+    [paginationAutoPageSize]="true"
+    [columnDefs]="columnDefs"
+    (gridReady)="onGridReady($event)"
+  >
+  </ag-grid-angular>
+</div>

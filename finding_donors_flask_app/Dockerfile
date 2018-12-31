@@ -12,7 +12,7 @@ RUN mkdir -p finding_donors_flask_app
 
 WORKDIR /home/flask/finding_donors_flask_app
 
-COPY . ./
+COPY environment.yml environment.yml
 RUN conda env create -f environment.yml
 RUN echo "alias l='ls -lah'" >> ~/.bashrc
 RUN echo "source activate finding-donors" >> ~/.bashrc
@@ -25,5 +25,6 @@ ENV CONDA_DEFAULT_ENV finding-donors
 ENV PATH /home/flask/.conda/envs/finding-donors/bin:/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 #EXPOSE 5000
+COPY . ./
 
 CMD ["/bin/bash", "-c", "/home/flask/finding_donors_flask_app/start_flask_app.sh"]
