@@ -9,7 +9,7 @@ jobs:
     executor: machine
     steps:
       - checkout
-      - run: ./build.sh
+      - run: bash ./build.sh
       - run: docker-compose up -d; sleep 60
       - run: |
           curl -X POST \
