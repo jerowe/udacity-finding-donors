@@ -7,3 +7,5 @@ node_modules
 **/__pycache__
 
 **/.ipynb_checkpoints
+finding-donors-web-app/dist
+finding-donors-web-app/nginx/html
