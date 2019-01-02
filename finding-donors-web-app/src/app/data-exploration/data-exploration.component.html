@@ -1,14 +1,88 @@
-<h2>Data Exploration</h2>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h2>Data Exploration</h2>
+      </div>
+      <div class="card-body">
 
-<div *ngIf="rowData">
-  <ag-grid-angular
-    style="width: 500px; height: 500px;"
-    class="ag-theme-balham"
-    [rowData]="rowData"
-    [pagination]="true"
-    [paginationAutoPageSize]="true"
-    [columnDefs]="columnDefs"
-    (gridReady)="onGridReady($event)"
-  >
-  </ag-grid-angular>
+        <div class="row">
+          <div class="col-md-12">
+            <div style="display: flex; flex-direction: row">
+              <div *ngIf="rowData" style=" overflow: hidden; flex-grow: 1">
+                <ag-grid-angular
+                  style="width: 100%; height: 500px;"
+                  class="ag-theme-balham"
+                  [rowData]="rowData"
+                  [pagination]="true"
+                  [paginationAutoPageSize]="true"
+                  [enableSorting]="true"
+                  [enableFilter]="true"
+                  [columnDefs]="columnDefs"
+                  (gridReady)="onGridReady($event)"
+                >
+                </ag-grid-angular>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <p>Click on a column to sort and filter it.</p>
+      </div>
+    </div>
+  </div>
 </div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h2>Numeric Data</h2>
+      </div>
+      <div class="card-body">
+        <p>Correlations are visualized for all numeric features.</p>
+        <p>Numeric Features: ['age', 'education-num', 'capital-gain', 'capital-loss', 'hours-per-week']</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-correlation-chart></app-correlation-chart>
+
+<br>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h2>Categorical Data</h2>
+      </div>
+      <div class="card-body">
+        <p>Bar charts show the %frequency of data being above or below 50K per column of categorical data.</p>
+        <p>Categorical Columns: ['workclass', 'education_level', 'marital-status', 'occupation', 'relationship', 'race', 'sex',
+          'native-country']
+        </p>
+        <p>Features I find most interesting are sex and education level (maybe that masters degree was worth it!).</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-income-bar-chart [frequencyKey]="'education_level'"></app-income-bar-chart>
+<br>
+<app-income-bar-chart [frequencyKey]="'workclass'"></app-income-bar-chart>
+<br>
+<app-income-bar-chart [frequencyKey]="'marital-status'"></app-income-bar-chart>
+<br>
+<app-income-bar-chart [frequencyKey]="'occupation'"></app-income-bar-chart>
+<br>
+<app-income-bar-chart [frequencyKey]="'relationship'"></app-income-bar-chart>
+<br>
+<app-income-bar-chart [frequencyKey]="'race'"></app-income-bar-chart>
+<br>
+<app-income-bar-chart [frequencyKey]="'sex'"></app-income-bar-chart>
+<br>
+<app-income-bar-chart [frequencyKey]="'native-country'"></app-income-bar-chart>

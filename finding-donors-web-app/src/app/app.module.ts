@@ -29,12 +29,22 @@ import {AgGridModule} from 'ag-grid-angular';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 import {DataExplorationComponent} from './data-exploration/data-exploration.component';
+import { CorrelationChartComponent } from './data-exploration/correlation-chart/correlation-chart.component';
+import { IncomeBarChartComponent } from './data-exploration/income-bar-chart/income-bar-chart.component';
+import { IncomeBarChartRouteComponent } from './data-exploration/income-bar-chart-route/income-bar-chart-route.component';
+import { CorrelationChartRouteComponent } from './data-exploration/correlation-chart-route/correlation-chart-route.component';
+import { ModelExplorationComponent } from './model-exploration/model-exploration.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    DataExplorationComponent
+    DataExplorationComponent,
+    CorrelationChartComponent,
+    IncomeBarChartComponent,
+    IncomeBarChartRouteComponent,
+    CorrelationChartRouteComponent,
+    ModelExplorationComponent
   ],
   imports: [
     BrowserModule,

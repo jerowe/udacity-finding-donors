@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {FindingDonorsService} from '../services/finding-donors.service';
 import {capitalize} from 'lodash';
+import * as d3 from 'd3';
 
 import 'ag-grid-community';
 
@@ -12,26 +13,15 @@ import 'ag-grid-community';
 export class DataExplorationComponent implements OnInit {
 
   public fetchDataError = null;
-  // public columnDefs: Array<{ headerName, field }> = [];
-  // public rowData: Array<any> = null;
+  public columnDefs: Array<{ headerName, field }> = [];
+  public rowData: Array<any> = null;
 
   private gridApi;
   private gridColumnApi;
-
-  columnDefs = [
-    {headerName: 'Make', field: 'make' },
-    {headerName: 'Model', field: 'model' },
-    {headerName: 'Price', field: 'price'}
-  ];
-
-  rowData = [
-    { make: 'Toyota', model: 'Celica', price: 35000 },
-    { make: 'Ford', model: 'Mondeo', price: 32000 },
-    { make: 'Porsche', model: 'Boxter', price: 72000 }
-  ];
+  @ViewChild('correlationChart') chartElement: ElementRef;
 
   constructor(private findingDonorsService: FindingDonorsService) {
-    // this.getData();
+    this.getData();
   }
 
   ngOnInit() {
@@ -41,8 +31,7 @@ export class DataExplorationComponent implements OnInit {
     this.fetchDataError = null;
     this.findingDonorsService.getData()
       .subscribe((results) => {
-        // this.rowData = results;
-        this.rowData = results.slice(0, 10);
+        this.rowData = results;
         this.createColumnDefs();
       }, (error) => {
         this.fetchDataError = error;
@@ -60,7 +49,6 @@ export class DataExplorationComponent implements OnInit {
     Object.keys(firstRow).map((key) => {
       this.columnDefs.push({headerName: capitalize(key), field: key});
     });
-    console.log(this.columnDefs);
   }
 
 }

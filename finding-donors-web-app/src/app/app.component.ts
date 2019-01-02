@@ -18,11 +18,11 @@ export class AppComponent {
       url: '/data-exploration',
       icon: 'icon-pencil',
     },
-    // {
-    //   name: 'Model Learning',
-    //   url: '/model-learning',
-    //   icon: 'icon-speedometer',
-    // },
+    {
+      name: 'Model Exploration',
+      url: '/model-exploration',
+      icon: 'icon-speedometer',
+    },
     // {
     //   name: 'Model Complexity',
     //   url: '/model-complexity',

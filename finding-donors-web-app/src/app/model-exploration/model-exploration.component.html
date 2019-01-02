@@ -1,0 +1,87 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h2>Start Training!</h2>
+      </div>
+      <div class="card-body">
+        <p>Select one or more models and optionally one or more sample sizes</p>
+        <form name="modelTrainingForm">
+          <div class="row">
+            <div class="col-md-6">
+
+              <div class="form-group row">
+                <label class="col-md-3 col-form-label">Models</label>
+                <div class="col-md-9 col-form-label">
+                  <div class="form-check checkbox" *ngFor="let model of potentialModels">
+                    <input class="form-check-input" [(ngModel)]="models[model]" id="{{model}}" name="{{model}}" type="checkbox" value="">
+                    <label class="form-check-label" for="{{model}}">{{model}}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-md-3 col-form-label">Sample Sizes</label>
+                <div class="col-md-9 col-form-label">
+                  <div class="form-check checkbox" *ngFor="let size of potentialSampleSizes">
+                    <input class="form-check-input" [(ngModel)]="sampleSizes[size]" id="{{size}}" name="{{size}}" type="checkbox">
+                    <label class="form-check-label" for="{{size}}">{{size}}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button class="btn btn-sm btn-primary" (click)="submitModelTraining()" type="submit">
+                <i class="fa fa-dot-circle-o"></i> Submit</button>
+
+              <button class="btn btn-sm btn-danger" (click)="clearData()" type="reset">
+                <i class="fa fa-ban"></i> Reset</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h2>Training Results</h2>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div style="display: flex; flex-direction: row">
+              <div style=" overflow: hidden; flex-grow: 1">
+                <ag-grid-angular
+                  style="width: 100%; height: 500px;"
+                  class="ag-theme-balham"
+                  [rowData]="trainingData"
+                  [pagination]="true"
+                  [paginationAutoPageSize]="true"
+                  [enableSorting]="true"
+                  [enableFilter]="true"
+                  [columnDefs]="columnDefs"
+                  (gridReady)="onGridReady($event)"
+                >
+                </ag-grid-angular>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <p>Click on a column to sort and filter it.</p>
+      </div>
+    </div>
+  </div>
+</div>
+

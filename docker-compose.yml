@@ -24,7 +24,6 @@ services:
       - traefik.port=8080
       - traefik.enable=true
     networks:
-      - internal
       - proxy
     ports:
       - "80:80"
@@ -36,11 +35,9 @@ services:
   redis:
     image: redis:alpine
     networks:
-      - internal
       - proxy
 
   udacity-finding-donors-server:
-    hostname: jerowe-finding-donors-server
     build:
       context: finding_donors_flask_app
       dockerfile: Dockerfile
@@ -59,11 +56,19 @@ services:
     depends_on:
       - redis
     networks:
-      - internal
+      - proxy
+
+  angular6-build:
+    build:
+      context: finding-donors-web-app
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./finding-donors-web-app:/app:rw
+    networks:
       - proxy
 
 networks:
   proxy:
     driver: bridge
-  internal:
-    external: false

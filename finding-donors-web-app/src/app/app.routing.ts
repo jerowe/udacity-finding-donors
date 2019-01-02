@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule, ExtraOptions} from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import {DataExplorationComponent} from './data-exploration/data-exploration.component';
+import {ModelExplorationComponent} from './model-exploration/model-exploration.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -9,14 +10,10 @@ export const routes: Routes = [
     path: 'home',
     component: HomeComponent,
   },
-  // {
-  //   path: 'model-learning',
-  //   component: ModelLearningComponent,
-  // },
-  // {
-  //   path: 'model-complexity',
-  //   component: ModelComplexityComponent,
-  // },
+  {
+    path: 'model-exploration',
+    component: ModelExplorationComponent,
+  },
   {
     path: 'data-exploration',
     component: DataExplorationComponent,

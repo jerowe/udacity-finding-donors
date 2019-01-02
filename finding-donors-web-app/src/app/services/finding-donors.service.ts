@@ -40,14 +40,22 @@ export class FindingDonorsService {
       this.httpOptions);
   }
 
-  // getTree(params: { max_depth }): Observable<any> {
-  //   return this.http.post(`${environment.apiUrl}/model-learning`,
-  //     params, this.httpOptions);
-  // }
-  //
-  // modelComplexity(): Observable<any> {
-  //   return this.http.post(`${environment.apiUrl}/model-complexity`,
-  //     {}, this.httpOptions);
-  //
-  // }
+  getFrequenciesByIncome(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/get-frequencies-by-income`,
+      this.httpOptions);
+  }
+
+  getFrequencies(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/get-frequencies`,
+      this.httpOptions);
+  }
+
+  train(params): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/train`, params, this.httpOptions);
+  }
+
+  getCorrelation(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/get-correlation`,
+      this.httpOptions);
+  }
 }

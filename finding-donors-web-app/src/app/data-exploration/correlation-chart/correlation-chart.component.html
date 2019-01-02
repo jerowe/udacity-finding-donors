@@ -1,0 +1,51 @@
+<br>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h3>Correlation</h3>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-8">
+            <div #chart></div>
+          </div>
+          <div class="col-md-4">
+            <table class="table table-striped">
+              <tr>
+                <td>
+                  Total Numer of Records
+                </td>
+                <td>
+                  45222
+                </td>
+              </tr>
+              <tr>
+                <td>Individuals making more than $50K</td>
+                <td>11208</td>
+              </tr>
+              <tr>
+                <td>Individuals making at most $50K</td>
+                <td>34014</td>
+              </tr>
+              <tr>
+                <td>% of individuals making more than $50K</td>
+                <td>
+                  24.8%
+                </td>
+              </tr>
+            </table>
+
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <p>There is no feature transformation or normalization on this data. This is the raw data, but correlation does
+          not change with feature scaling.</p>
+        <p>Income was encoded as 0 for less than 50K and 1 for greater than 50K</p>
+        <p>Only education number seems to be correlated with income, but income is also not an actual numeric value.</p>
+      </div>
+    </div>
+  </div>
+</div>
+

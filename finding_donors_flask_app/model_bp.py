@@ -7,8 +7,10 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.svm import SVC
 from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, GradientBoostingClassifier
+from sklearn.neighbors import KNeighborsClassifier
 import json
 import redis
+from pprint import pprint
 
 redis_client = redis.Redis(host='redis', port=6379, db=0)
 
@@ -22,6 +24,7 @@ from sklearn.model_selection import train_test_split
 model_bp = Blueprint('finding-donors-model', __name__)
 models = {
     'SVC': SVC(gamma='auto', random_state=1),
+    'KNeighborsClassifier': KNeighborsClassifier(),
     'GaussianNB': GaussianNB(),
     'ADABoostClassifier': AdaBoostClassifier(random_state=1),
     'RandomForestClassifier': RandomForestClassifier(random_state=1),
@@ -39,23 +42,32 @@ def train():
     """
     X_train, X_test, y_train, y_test = return_train_test_data()
     request_data = json.loads(request.data.decode('utf-8'))
+    pprint('Request data')
+    pprint(request_data)
     if not 'model_name' in request_data:
         raise Exception('You must define a model name!')
     else:
         model_name = request_data.get('model_name')
 
-    total_records = round(len(y_train) + 1)
+    total_records = round(len(y_train))
     if not 'sample_size' in request_data:
-        sample_size = round(len(y_train) * 1)
+        sample_size = round(len(y_train))
     else:
-        sample_size = request_data.get('sample_size')
+        sample_size = int(request_data.get('sample_size'))
         if sample_size > total_records:
             sample_size = total_records
 
-    results = {model_name: {sample_size: None}}
     model = get_model(model_name)
-    results[model_name][sample_size] = train_predict(model, sample_size, X_train, y_train, X_test, y_test)
+    results = train_predict(model, sample_size, X_train, y_train, X_test, y_test)
     return jsonify(results)
+
+
+def train_in_background():
+    X_train, X_test, y_train, y_test = return_train_test_data()
+    sample_size = round(len(y_train))
+    for model_name in models:
+        model = get_model(model_name)
+        train_predict(model, sample_size, X_train, y_train, X_test, y_test)
 
 
 def get_model(model_name='ADABoostClassifier'):
@@ -85,10 +97,15 @@ def train_predict(learner, sample_size, X_train, y_train, X_test, y_test):
         return results
     else:
         results = {}
+        results['model'] = learner_name
+        results['sample_size'] = sample_size
         results['fetched_from_cache'] = False
 
         start = time()  # Get start time
         # Train!
+        pprint('Training data size')
+        pprint(X_train[:sample_size].shape)
+
         learner = learner.fit(X_train[:sample_size], y_train[:sample_size])
         end = time()  # Get end time
 
@@ -145,3 +162,10 @@ def preprocess_data():
     # Print the number of features after one-hot encoding
     # encoded = list(features_final.columns)
     return features_final_t, income_t
+
+
+# Since we're sticking all this in a redis cache anyways
+# Just train when the web server comes up
+
+train_in_background()
+
