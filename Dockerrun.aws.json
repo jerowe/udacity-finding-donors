@@ -1,0 +1,69 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "volumes": [
+    {
+      "name": "docker-socket",
+      "host": {
+        "sourcePath": "/var/run/docker.sock"
+      }
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "name": "udacity-finding-donors-server",
+      "image": "quay.io/jerowe/udacity-finding-donors-server:latest",
+      "update": true,
+      "essential": true,
+      "memory": 248,
+      "mountPoints": [
+      ],
+      "portMappings": [
+        {
+          "hostPort": 5000,
+          "containerPort": 5000
+        }
+      ]
+    },
+    {
+      "name": "udacity-finding-donors-client",
+      "image": "quay.io/jerowe/udacity-finding-donors-client:latest",
+      "essential": true,
+      "update": true,
+      "memory": 248,
+      "portMappings": [
+      ],
+      "links": [
+        "udacity-finding-donors-server"
+      ],
+      "mountPoints": [
+      ]
+    },
+    {
+      "name": "traefik-maanger",
+      "image": "traefik:1.5-alpine",
+      "essential": true,
+      "update": true,
+      "memory": 248,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        },
+        {
+          "hostPort": 443,
+          "containerPort": 443
+        }
+      ],
+      "links": [
+        "udacity-finding-donors-server"
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "docker-socker",
+          "containerPath": "/var/run/docker.sock",
+          "readOnly": true
+        }
+      ]
+    }
+  ]
+}

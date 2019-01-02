@@ -20,7 +20,7 @@ services:
     container_name: traefik
     labels:
       - traefik.frontend.entryPoints=http
-      - traefik.frontend.rule=Host:traefik.docker.localhost
+      - traefik.frontend.rule=PathPrefixStrip:/traefik;Host:localhost
       - traefik.port=8080
       - traefik.enable=true
     networks:
@@ -47,7 +47,8 @@ services:
       - "5000:5000"
     labels:
       - traefik.backend=udacity-finding-donors-server
-      - traefik.frontend.entryPoints=http,https
+      - traefik.frontend.entryPoints=http
+#      - traefik.frontend.entryPoints=http,https
       - traefik.frontend.rule=PathPrefixStrip:/server;Host:localhost
       - traefik.docker.network=proxy
       - traefik.frontend.headers.customresponseheaders.Access-Control-Allow-Origin = '*'
@@ -58,6 +59,27 @@ services:
     networks:
       - proxy
 
+  udacity-finding-donors-client:
+    build:
+      context: finding-donors-web-app
+      dockerfile: nginx/Dockerfile
+#    ports:
+#      - "80:80"
+    labels:
+      - traefik.backend=udacity-finding-donors-client
+      - traefik.frontend.entryPoints=http
+      - traefik.frontend.rule=Host:localhost
+#      - traefik.frontend.rule=PathPrefixStrip:/;Host:localhost
+      - traefik.docker.network=proxy
+      - traefik.frontend.headers.customresponseheaders.Access-Control-Allow-Origin = '*'
+      - traefik.port=80
+      - traefik.enable=true
+    depends_on:
+      - udacity-finding-donors-server
+    networks:
+      - proxy
+
+## This image is only for building the angular interface. It is not used in the final AWS config
   angular6-build:
     build:
       context: finding-donors-web-app
