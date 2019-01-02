@@ -9,6 +9,7 @@ jobs:
     executor: machine
     steps:
       - checkout
+      - run: mkdir -p finding-donors-web-app/nginx/html
       - run: docker-compose build
       - run: docker-compose up -d; sleep 60
       - run: |
