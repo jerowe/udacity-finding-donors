@@ -15,6 +15,12 @@
       "update": true,
       "essential": true,
       "memory": 248,
+        "environment": [
+        {
+          "name": "DONOR_DATA",
+          "value": "/home/flask/finding_donors_flask_app/materials/census.csv"
+        }
+      ],
       "mountPoints": [
       ],
       "portMappings": [

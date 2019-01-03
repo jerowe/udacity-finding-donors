@@ -9,6 +9,8 @@ jobs:
     executor: machine
     steps:
       - checkout
+      - run: echo $(pwd)
+      - run: cd ../ && mv project finding-donors
       - run: bash ./build.sh
       - run: docker-compose up -d; sleep 60
       - run: |

@@ -63,13 +63,10 @@ services:
     build:
       context: finding-donors-web-app
       dockerfile: nginx/Dockerfile
-#    ports:
-#      - "80:80"
     labels:
       - traefik.backend=udacity-finding-donors-client
       - traefik.frontend.entryPoints=http
       - traefik.frontend.rule=Host:localhost
-#      - traefik.frontend.rule=PathPrefixStrip:/;Host:localhost
       - traefik.docker.network=proxy
       - traefik.frontend.headers.customresponseheaders.Access-Control-Allow-Origin = '*'
       - traefik.port=80
