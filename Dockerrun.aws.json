@@ -49,7 +49,7 @@
       "image": "quay.io/jerowe/udacity-finding-donors-client:1.2",
       "essential": true,
       "update": true,
-      "memory": 248,
+      "memory": 148,
       "portMappings": [
       ],
       "links": [
@@ -63,7 +63,7 @@
       "image": "traefik:1.5-alpine",
       "essential": true,
       "update": true,
-      "memory": 248,
+      "memory": 148,
       "portMappings": [
         {
           "hostPort": 80,
