@@ -11,11 +11,11 @@
   "containerDefinitions": [
     {
       "name": "udacity-finding-donors-server",
-      "image": "quay.io/jerowe/udacity-finding-donors-server:1.1",
+      "image": "quay.io/jerowe/udacity-finding-donors-server:1.2",
       "update": true,
       "essential": true,
       "memory": 248,
-        "environment": [
+      "environment": [
         {
           "name": "DONOR_DATA",
           "value": "/home/flask/finding_donors_flask_app/materials/census.csv"
@@ -46,7 +46,7 @@
     },
     {
       "name": "udacity-finding-donors-client",
-      "image": "quay.io/jerowe/udacity-finding-donors-client:1.1",
+      "image": "quay.io/jerowe/udacity-finding-donors-client:1.2",
       "essential": true,
       "update": true,
       "memory": 248,

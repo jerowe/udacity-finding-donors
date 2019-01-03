@@ -5,8 +5,8 @@ set -x -e
 docker tag finding-donors_udacity-finding-donors-server quay.io/jerowe/udacity-finding-donors-server:latest
 docker tag finding-donors_udacity-finding-donors-client quay.io/jerowe/udacity-finding-donors-client:latest
 
-docker tag finding-donors_udacity-finding-donors-server quay.io/jerowe/udacity-finding-donors-server:1.1
-docker tag finding-donors_udacity-finding-donors-client quay.io/jerowe/udacity-finding-donors-client:1.1
+docker tag finding-donors_udacity-finding-donors-server quay.io/jerowe/udacity-finding-donors-server:1.2
+docker tag finding-donors_udacity-finding-donors-client quay.io/jerowe/udacity-finding-donors-client:1.2
 
 
 # Docker login
@@ -18,5 +18,5 @@ docker push quay.io/jerowe/udacity-finding-donors-server:latest
 docker push quay.io/jerowe/udacity-finding-donors-client:latest
 
 # Push versioned to quay
-docker push quay.io/jerowe/udacity-finding-donors-server:1.1
-docker push quay.io/jerowe/udacity-finding-donors-client:1.1
+docker push quay.io/jerowe/udacity-finding-donors-server:1.2
+docker push quay.io/jerowe/udacity-finding-donors-client:1.2
