@@ -22,6 +22,20 @@
           "hostPort": 5000,
           "containerPort": 5000
         }
+      ],
+      "links": [
+        "redis"
+      ]
+    },
+    {
+      "name": "redis",
+      "image": "redis:alpine",
+      "update": true,
+      "essential": true,
+      "memory": 248,
+      "mountPoints": [
+      ],
+      "portMappings": [
       ]
     },
     {
@@ -39,7 +53,7 @@
       ]
     },
     {
-      "name": "traefik-maanger",
+      "name": "traefik-manager",
       "image": "traefik:1.5-alpine",
       "essential": true,
       "update": true,
@@ -59,7 +73,7 @@
       ],
       "mountPoints": [
         {
-          "sourceVolume": "docker-socker",
+          "sourceVolume": "docker-socket",
           "containerPath": "/var/run/docker.sock",
           "readOnly": true
         }

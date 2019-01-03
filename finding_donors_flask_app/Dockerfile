@@ -24,6 +24,8 @@ ENV CONDA_PROMPT_MODIFIER (finding-donors)
 ENV CONDA_DEFAULT_ENV finding-donors
 ENV PATH /home/flask/.conda/envs/finding-donors/bin:/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
+ENV DONOR_DATA /home/flask/finding_donors_flask_app/materials/census.csv
+
 #EXPOSE 5000
 COPY . ./
 
