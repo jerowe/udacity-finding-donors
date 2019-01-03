@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 set -x -e
+DOCKER_COMPOSE_PREFIX=$(basename $(pwd))
+
 ## Building is a 2 step process
 ## Run an initial docker-compose build
 ## Build the angular interface
@@ -14,8 +16,6 @@ docker-compose build --force-rm
 # Build the front end angular interface
 cd finding-donors-web-app
 rm -rf nginx/html/*
-
-DOCKER_COMPOSE_PREFIX=$(basename $(pwd))
 
 docker-compose images
 docker images
