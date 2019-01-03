@@ -18,6 +18,7 @@ rm -rf nginx/html/*
 DOCKER_COMPOSE_PREFIX=$(basename $(pwd))
 
 docker-compose images
+docker-images
 
 docker run -it -v $(pwd):/app:z ${DOCKER_COMPOSE_PREFIX}_angular6-build ng build --prod  --output-hashing none --configuration=production --output-path ./nginx/html
 cd ..
