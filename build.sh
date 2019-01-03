@@ -14,7 +14,10 @@ docker-compose build --force-rm
 # Build the front end angular interface
 cd finding-donors-web-app
 rm -rf nginx/html/*
-docker run -it -v $(pwd):/app:z finding-donors_angular6-build ng build --prod  --output-hashing none --configuration=production --output-path ./nginx/html
+
+DOCKER_COMPOSE_PREFIX=$(basename $(pwd))
+
+docker run -it -v $(pwd):/app:z ${DOCKER_COMPOSE_PREFIX}_angular6-build ng build --prod  --output-hashing none --configuration=production --output-path ./nginx/html
 cd ..
 
 docker-compose build --force-rm

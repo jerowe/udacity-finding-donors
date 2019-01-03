@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 set -x -e
 
-### Tag the docker images
-docker tag finding-donors_udacity-finding-donors-server quay.io/jerowe/udacity-finding-donors-server:latest
-docker tag finding-donors_udacity-finding-donors-client quay.io/jerowe/udacity-finding-donors-client:latest
+DOCKER_COMPOSE_PREFIX=$(basename $(pwd))
 
-docker tag finding-donors_udacity-finding-donors-server quay.io/jerowe/udacity-finding-donors-server:1.2
-docker tag finding-donors_udacity-finding-donors-client quay.io/jerowe/udacity-finding-donors-client:1.2
+### Tag the docker images
+docker tag ${DOCKER_COMPOSE_PREFIX}_udacity-finding-donors-server quay.io/jerowe/udacity-finding-donors-server:latest
+docker tag ${DOCKER_COMPOSE_PREFIX}_udacity-finding-donors-client quay.io/jerowe/udacity-finding-donors-client:latest
+
+docker tag ${DOCKER_COMPOSE_PREFIX}_udacity-finding-donors-server quay.io/jerowe/udacity-finding-donors-server:1.2
+docker tag ${DOCKER_COMPOSE_PREFIX}_udacity-finding-donors-client quay.io/jerowe/udacity-finding-donors-client:1.2
 
 
 # Docker login
