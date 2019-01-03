@@ -4,12 +4,13 @@ from flask_cors import CORS, cross_origin
 import json
 import functools
 
-try:
-    from .data_bp import data_bp
-    from .model_bp import model_bp
-except:
-    from data_bp import data_bp
-    from model_bp import model_bp
+# try:
+#     from .data_bp import data_bp
+#     from .model_bp import model_bp
+# except:
+# Gunicorn adds this to the package path
+from data_bp import data_bp
+from model_bp import model_bp
 
 app = Flask(__name__)
 CORS(app, allow_headers=['Content-Type', 'Access-Control-Allow-Origin',

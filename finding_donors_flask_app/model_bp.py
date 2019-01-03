@@ -11,15 +11,14 @@ from sklearn.neighbors import KNeighborsClassifier
 import json
 import redis
 from pprint import pprint
+from data_bp import data
+from sklearn.model_selection import train_test_split
 
 redis_client = redis.Redis(host='redis', port=6379, db=0)
 
-try:
-    from .data_bp import data
-except:
-    from data_bp import data
-
-from sklearn.model_selection import train_test_split
+# try:
+#     from .data_bp import data
+# except:
 
 model_bp = Blueprint('finding-donors-model', __name__)
 models = {
