@@ -5,7 +5,7 @@ set -x -e
 ## There is no earthly reason why redis should take 5 minutes, but here we are
 echo "Waiting for redis"
 
-bash /home/flask/finding_donors_flask/wait-for-it.sh --host redis --port 6379 --timeout 300
+#bash /home/flask/finding_donors_flask/wait-for-it.sh --host redis --port 6379 --timeout 300
 
 echo "Complete waiting for redis"
 

@@ -10,5 +10,3 @@ WORKDIR /app
 EXPOSE 4200
 
 ENV NODE_ENV dev
-
-CMD ["/bin/bash", "-c", "npm install; npm install --only=dev"]

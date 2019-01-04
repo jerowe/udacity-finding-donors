@@ -7,8 +7,8 @@ DOCKER_COMPOSE_PREFIX=$(basename $(pwd))
 docker tag ${DOCKER_COMPOSE_PREFIX}_udacity-finding-donors-server quay.io/jerowe/udacity-finding-donors-server:latest
 docker tag ${DOCKER_COMPOSE_PREFIX}_udacity-finding-donors-client quay.io/jerowe/udacity-finding-donors-client:latest
 
-docker tag ${DOCKER_COMPOSE_PREFIX}_udacity-finding-donors-server quay.io/jerowe/udacity-finding-donors-server:1.2
-docker tag ${DOCKER_COMPOSE_PREFIX}_udacity-finding-donors-client quay.io/jerowe/udacity-finding-donors-client:1.2
+docker tag ${DOCKER_COMPOSE_PREFIX}_udacity-finding-donors-server quay.io/jerowe/udacity-finding-donors-server:1.4
+docker tag ${DOCKER_COMPOSE_PREFIX}_udacity-finding-donors-client quay.io/jerowe/udacity-finding-donors-client:1.4
 
 
 # Docker login
@@ -20,5 +20,5 @@ docker push quay.io/jerowe/udacity-finding-donors-server:latest
 docker push quay.io/jerowe/udacity-finding-donors-client:latest
 
 # Push versioned to quay
-docker push quay.io/jerowe/udacity-finding-donors-server:1.2
-docker push quay.io/jerowe/udacity-finding-donors-client:1.2
+docker push quay.io/jerowe/udacity-finding-donors-server:1.4
+docker push quay.io/jerowe/udacity-finding-donors-client:1.4
