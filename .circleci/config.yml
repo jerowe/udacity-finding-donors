@@ -11,7 +11,7 @@ jobs:
       - checkout
       - run: bash ./build.sh
       - run: docker-compose images
-      - run: docker-compose up -d; sleep 60
+      - run: docker-compose up -d; sleep 120
       - run: |
           curl -X POST \
           http://localhost/server/health \

@@ -11,7 +11,9 @@ from sklearn.preprocessing import MinMaxScaler
 
 redis_client = redis.Redis(host='redis', port=6379, db=0)
 
-data = pd.read_csv(os.environ.get('DONOR_DATA'))
+# ON AWS This fails and tells me to try engine=python
+data = pd.read_csv(os.environ.get('DONOR_DATA'), engine='python')
+
 numeric_columns = data.select_dtypes(include=[np.number]).columns.tolist()
 data_less_than_50k = data[data['income'] == '<=50K']
 data_greater_than_50k = data[data['income'] == '>50K']

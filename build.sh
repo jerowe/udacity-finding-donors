@@ -11,6 +11,7 @@ DOCKER_COMPOSE_PREFIX=$(basename $(pwd))
 mkdir -p finding-donors-web-app/nginx/html/
 mkdir -p finding-donors-web-app/nginx/html/t
 
+#docker-compose build --force-rm --no-cache
 docker-compose build --force-rm
 
 # Build the front end angular interface

@@ -11,10 +11,10 @@
   "containerDefinitions": [
     {
       "name": "udacity-finding-donors-server",
-      "image": "quay.io/jerowe/udacity-finding-donors-server:1.4",
+      "image": "quay.io/jerowe/udacity-finding-donors-server:1.5",
       "update": true,
       "essential": true,
-      "memory": 248,
+      "memory": 2000,
       "environment": [
         {
           "name": "DONOR_DATA",
@@ -46,7 +46,7 @@
     },
     {
       "name": "udacity-finding-donors-client",
-      "image": "quay.io/jerowe/udacity-finding-donors-client:1.4",
+      "image": "quay.io/jerowe/udacity-finding-donors-client:1.5",
       "essential": true,
       "update": true,
       "memory": 148,
