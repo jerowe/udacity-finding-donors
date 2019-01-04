@@ -75,7 +75,8 @@
         }
       ],
       "links": [
-        "udacity-finding-donors-server"
+        "udacity-finding-donors-server",
+        "udacity-finding-donors-client"
       ],
       "mountPoints": [
         {
