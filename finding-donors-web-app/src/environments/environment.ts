@@ -6,7 +6,6 @@ export const environment: { production, apiUrl, allowOrigin } = {
   production: false,
   apiUrl: 'http://localhost/server',
   allowOrigin: 'http://localhost',
-
 };
 
 /*

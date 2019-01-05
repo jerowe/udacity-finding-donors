@@ -31,7 +31,17 @@
       ],
       "links": [
         "redis"
-      ]
+      ],
+      "networkMode": "bridge",
+      "dockerLabels": {
+        "traefik.backend": "udacity-finding-donors-server",
+        "traefik.frontend.entryPoints": "http",
+        "traefik.frontend.rule": "PathPrefixStrip:/server;Host:jerowe-udacity-finding-donors.us-east-2.elasticbeanstalk.com",
+        "traefik.docker.network": "proxy",
+        "traefik.frontend.headers.customresponseheaders.Access-Control-Allow-Origin": "*",
+        "traefik.port": "5000",
+        "traefik.enable": true
+      }
     },
     {
       "name": "redis",
@@ -56,7 +66,17 @@
         "udacity-finding-donors-server"
       ],
       "mountPoints": [
-      ]
+      ],
+      "networkMode": "bridge",
+      "dockerLabels": {
+        "traefik.backend": "udacity-finding-donors-client",
+        "traefik.frontend.entryPoints": "http",
+        "traefik.frontend.rule": "Host:jerowe-udacity-finding-donors.us-east-2.elasticbeanstalk.com",
+        "traefik.port": "80",
+        "traefik.frontend.headers.customresponseheaders.Access-Control-Allow-Origin": "*",
+        "traefik.docker.network": "proxy",
+        "traefik.enable": true
+      }
     },
     {
       "name": "traefik-manager",
@@ -82,8 +102,26 @@
         {
           "sourceVolume": "docker-socket",
           "containerPath": "/var/run/docker.sock",
-          "readOnly": true
+          "readOnly": false
         }
+      ],
+      "networkMode": "bridge",
+      "dockerLabels": {
+        "traefik.frontend.entryPoints": "http",
+        "traefik.frontend.rule": "PathPrefixStrip:/traefik;Host:jerowe-udacity-finding-donors.us-east-2.elasticbeanstalk.com",
+        "traefik.port": "8080",
+        "traefik.enable": true
+      },
+      "command": [
+        "traefik",
+        "--api",
+        "--docker",
+        "--web",
+        "--logLevel=info",
+        "--docker.domain=localhost",
+        "--docker.endpoint=unix:///var/run/docker.sock",
+        "--docker.watch=true",
+        "--docker.exposedbydefault=false"
       ]
     }
   ]

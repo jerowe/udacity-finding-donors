@@ -13,10 +13,21 @@ services:
   traefik-manager:
     image: traefik:1.5-alpine
     restart: always
-    command: |
-      --web --logLevel=info \
-      --docker --docker.domain="localhost" --docker.endpoint="unix:///var/run/docker.sock" \
-      --docker.watch=true --docker.exposedbydefault="false"
+#    command: |
+#      --web --logLevel=info \
+#      --docker --docker.domain="localhost" --docker.endpoint="unix:///var/run/docker.sock" \
+#      --docker.watch=true --docker.exposedbydefault="false"
+    command: [
+      "traefik",
+      "--api",
+      "--docker",
+      "--web",
+      '--logLevel=info',
+      '--docker.domain=localhost',
+      '--docker.endpoint=unix:///var/run/docker.sock',
+      '--docker.watch=true',
+      '--docker.exposedbydefault=false'
+    ]
     container_name: traefik
     labels:
       - traefik.frontend.entryPoints=http
@@ -48,7 +59,6 @@ services:
     labels:
       - traefik.backend=udacity-finding-donors-server
       - traefik.frontend.entryPoints=http
-#      - traefik.frontend.entryPoints=http,https
       - traefik.frontend.rule=PathPrefixStrip:/server;Host:localhost
       - traefik.docker.network=proxy
       - traefik.frontend.headers.customresponseheaders.Access-Control-Allow-Origin = '*'
@@ -76,7 +86,7 @@ services:
     networks:
       - proxy
 
-## This image is only for building the angular interface. It is not used in the final AWS config
+  ## This image is only for building the angular interface. It is not used in the final AWS config
   angular6-build:
     build:
       context: finding-donors-web-app
