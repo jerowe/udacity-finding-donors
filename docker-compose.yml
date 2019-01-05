@@ -1,0 +1,103 @@
+version: '3'
+
+# Run as
+# docker-compose build; docker-compose up -d
+# Check with
+# docker ps
+# Then check the logs with
+# docker logs --tail 50 $container_id
+# docker-compose logs --tail 20 tf_counts
+
+services:
+
+  traefik-manager:
+    image: traefik:1.5-alpine
+    restart: always
+#    command: |
+#      --web --logLevel=info \
+#      --docker --docker.domain="localhost" --docker.endpoint="unix:///var/run/docker.sock" \
+#      --docker.watch=true --docker.exposedbydefault="false"
+    command: [
+      "traefik",
+      "--api",
+      "--docker",
+      "--web",
+      '--logLevel=info',
+      '--docker.domain=localhost',
+      '--docker.endpoint=unix:///var/run/docker.sock',
+      '--docker.watch=true',
+      '--docker.exposedbydefault=false'
+    ]
+    container_name: traefik
+    labels:
+      - traefik.frontend.entryPoints=http
+      - traefik.frontend.rule=PathPrefixStrip:/traefik;Host:localhost
+      - traefik.port=8080
+      - traefik.enable=true
+    networks:
+      - proxy
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  redis:
+    image: redis:alpine
+    networks:
+      - proxy
+
+  udacity-finding-donors-server:
+    build:
+      context: finding_donors_flask_app
+      dockerfile: Dockerfile
+    environment:
+      DONOR_DATA: /home/flask/finding_donors_flask_app/materials/census.csv
+    ports:
+      - "5000:5000"
+    labels:
+      - traefik.backend=udacity-finding-donors-server
+      - traefik.frontend.entryPoints=http
+      - traefik.frontend.rule=PathPrefixStrip:/server;Host:localhost
+      - traefik.docker.network=proxy
+      - traefik.frontend.headers.customresponseheaders.Access-Control-Allow-Origin = '*'
+      - traefik.port=5000
+      - traefik.enable=true
+    depends_on:
+      - redis
+    networks:
+      - proxy
+
+  udacity-finding-donors-client:
+    build:
+      context: finding-donors-web-app
+      dockerfile: nginx/Dockerfile
+    labels:
+      - traefik.backend=udacity-finding-donors-client
+      - traefik.frontend.entryPoints=http
+      - traefik.frontend.rule=Host:localhost
+      - traefik.docker.network=proxy
+      - traefik.frontend.headers.customresponseheaders.Access-Control-Allow-Origin = '*'
+      - traefik.port=80
+      - traefik.enable=true
+    depends_on:
+      - udacity-finding-donors-server
+    networks:
+      - proxy
+
+  ## This image is only for building the angular interface. It is not used in the final AWS config
+  angular6-build:
+    build:
+      context: finding-donors-web-app
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./finding-donors-web-app:/app:rw
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    driver: bridge

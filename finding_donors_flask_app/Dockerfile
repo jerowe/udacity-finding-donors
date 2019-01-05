@@ -8,8 +8,11 @@ RUN adduser --home /home/flask flask
 USER flask
 WORKDIR /home/flask
 
-COPY environment.yml environment.yml
+RUN mkdir -p finding_donors_flask_app
 
+WORKDIR /home/flask/finding_donors_flask_app
+
+COPY environment.yml environment.yml
 RUN conda env create -f environment.yml
 RUN echo "alias l='ls -lah'" >> ~/.bashrc
 RUN echo "source activate finding-donors" >> ~/.bashrc
@@ -21,17 +24,9 @@ ENV CONDA_PROMPT_MODIFIER (finding-donors)
 ENV CONDA_DEFAULT_ENV finding-donors
 ENV PATH /home/flask/.conda/envs/finding-donors/bin:/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-ENV DONOR_DATA '/home/flask/data/census.csv'
+ENV DONOR_DATA /home/flask/finding_donors_flask_app/materials/census.csv
 
-RUN mkdir -p data
-RUN mkdir -p scripts/flask_app
+#EXPOSE 5000
+COPY . ./
 
-WORKDIR /home/flask/scripts
-
-COPY . flask_app/
-
-WORKDIR /home/flask/scripts
-EXPOSE 5000
-
-CMD ["/bin/bash", "-c", "/home/flask/scripts/start_flask_app.sh"]
-#CMD ["/bin/bash", "-c", "tail -f /dev/null"]
+CMD ["/bin/bash", "-c", "/home/flask/finding_donors_flask_app/start_flask_app.sh"]

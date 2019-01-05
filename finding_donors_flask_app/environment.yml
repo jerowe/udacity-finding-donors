@@ -14,3 +14,4 @@ dependencies:
   - ipython
   - gunicorn
   - jupyterhub
+  - redis-py
