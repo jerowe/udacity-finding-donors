@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
+set -x -e
 
-#export HOUSING_DATA='/Users/jillian/Dropbox/classes/udacity-machine-learning/boston-house-prices/flask_app/materials/housing.csv'
-#gunicorn --workers=2 --bind=0.0.0.0:5000 --keep-alive=2000 --timeout=2000 --log-level=debug flask_app:flask_app --daemon
-cd ..
-export DONOR_DATA='/Users/jillian/Dropbox/classes/udacity-machine-learning/finding-donors/finding-donors-flask-app/materials/census.csv'
-gunicorn --workers=2 --bind=0.0.0.0:5000 --keep-alive=2000 --timeout=2000 --log-level=debug finding_donors_flask_app.flask_app:app
+## There is no earthly reason why redis should take 5 minutes, but here we are
+echo "Waiting for redis"
+
+#bash /home/flask/finding_donors_flask/wait-for-it.sh --host redis --port 6379 --timeout 300
+
+echo "Complete waiting for redis"
+
+gunicorn --workers=4 --bind=0.0.0.0:5000 --keep-alive=2000 --timeout=2000 --log-level=debug flask_app:app

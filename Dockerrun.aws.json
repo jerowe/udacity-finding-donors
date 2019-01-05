@@ -1,0 +1,128 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "volumes": [
+    {
+      "name": "docker-socket",
+      "host": {
+        "sourcePath": "/var/run/docker.sock"
+      }
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "name": "udacity-finding-donors-server",
+      "image": "quay.io/jerowe/udacity-finding-donors-server:1.5",
+      "update": true,
+      "essential": true,
+      "memory": 2000,
+      "environment": [
+        {
+          "name": "DONOR_DATA",
+          "value": "/home/flask/finding_donors_flask_app/materials/census.csv"
+        }
+      ],
+      "mountPoints": [
+      ],
+      "portMappings": [
+        {
+          "hostPort": 5000,
+          "containerPort": 5000
+        }
+      ],
+      "links": [
+        "redis"
+      ],
+      "networkMode": "bridge",
+      "dockerLabels": {
+        "traefik.backend": "udacity-finding-donors-server",
+        "traefik.frontend.entryPoints": "http",
+        "traefik.frontend.rule": "PathPrefixStrip:/server;Host:jerowe-udacity-finding-donors.us-east-2.elasticbeanstalk.com",
+        "traefik.docker.network": "proxy",
+        "traefik.frontend.headers.customresponseheaders.Access-Control-Allow-Origin": "*",
+        "traefik.port": "5000",
+        "traefik.enable": true
+      }
+    },
+    {
+      "name": "redis",
+      "image": "redis:alpine",
+      "update": true,
+      "essential": true,
+      "memory": 248,
+      "mountPoints": [
+      ],
+      "portMappings": [
+      ]
+    },
+    {
+      "name": "udacity-finding-donors-client",
+      "image": "quay.io/jerowe/udacity-finding-donors-client:1.5",
+      "essential": true,
+      "update": true,
+      "memory": 148,
+      "portMappings": [
+      ],
+      "links": [
+        "udacity-finding-donors-server"
+      ],
+      "mountPoints": [
+      ],
+      "networkMode": "bridge",
+      "dockerLabels": {
+        "traefik.backend": "udacity-finding-donors-client",
+        "traefik.frontend.entryPoints": "http",
+        "traefik.frontend.rule": "Host:jerowe-udacity-finding-donors.us-east-2.elasticbeanstalk.com",
+        "traefik.port": "80",
+        "traefik.frontend.headers.customresponseheaders.Access-Control-Allow-Origin": "*",
+        "traefik.docker.network": "proxy",
+        "traefik.enable": true
+      }
+    },
+    {
+      "name": "traefik-manager",
+      "image": "traefik:1.5-alpine",
+      "essential": true,
+      "update": true,
+      "memory": 148,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        },
+        {
+          "hostPort": 443,
+          "containerPort": 443
+        }
+      ],
+      "links": [
+        "udacity-finding-donors-server",
+        "udacity-finding-donors-client"
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "docker-socket",
+          "containerPath": "/var/run/docker.sock",
+          "readOnly": false
+        }
+      ],
+      "networkMode": "bridge",
+      "dockerLabels": {
+        "traefik.frontend.entryPoints": "http",
+        "traefik.frontend.rule": "PathPrefixStrip:/traefik;Host:jerowe-udacity-finding-donors.us-east-2.elasticbeanstalk.com",
+        "traefik.port": "8080",
+        "traefik.enable": true
+      },
+      "command": [
+        "traefik",
+        "--api",
+        "--docker",
+        "--web",
+        "--logLevel=info",
+        "--docker.domain=localhost",
+        "--docker.endpoint=unix:///var/run/docker.sock",
+        "--docker.watch=true",
+        "--docker.exposedbydefault=false"
+      ]
+    }
+  ]
+}

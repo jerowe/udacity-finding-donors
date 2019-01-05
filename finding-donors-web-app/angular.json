@@ -23,9 +23,21 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/@coreui/coreui/dist/css/coreui.min.css",
+              "node_modules/@coreui/icons/css/coreui-icons.css",
+              "node_modules/font-awesome/css/font-awesome.min.css",
+              "node_modules/flag-icon-css/css/flag-icon.css",
+              "node_modules/simple-line-icons/css/simple-line-icons.css",
+              "node_modules/ag-grid-community/dist/styles/ag-grid.css",
+              "node_modules/ag-grid-community/dist/styles/ag-theme-balham.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/popper.js/dist/popper.min.js",
+              "node_modules/@coreui/coreui/dist/js/coreui.min.js"
+            ]
           },
           "configurations": {
             "production": {
