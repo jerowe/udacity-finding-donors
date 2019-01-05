@@ -10,11 +10,11 @@ jobs:
     steps:
       - checkout
       - run: bash ./build.sh
-      - run: docker-compose images
-      - run: docker-compose up -d; sleep 120
-      - run: |
-          curl -X POST \
-          http://localhost/server/health \
-          -H 'Cache-Control: no-cache' \
-          -H 'Content-Type: application/json' \
-          -d '{"hello": "world"}'
+#      - run: docker-compose images
+#      - run: docker-compose up -d
+#      - run: |
+#          curl -X POST \
+#          http://localhost/server/health \
+#          -H 'Cache-Control: no-cache' \
+#          -H 'Content-Type: application/json' \
+#          -d '{"hello": "world"}'
