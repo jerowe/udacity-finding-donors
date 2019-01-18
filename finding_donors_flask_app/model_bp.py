@@ -65,8 +65,9 @@ def train_in_background():
     X_train, X_test, y_train, y_test = return_train_test_data()
     sample_size = round(len(y_train))
     for model_name in models:
-        model = get_model(model_name)
-        train_predict(model, sample_size, X_train, y_train, X_test, y_test)
+        for sample_size in [100, 1000, 10000, 20000, 30000, sample_size]:
+            model = get_model(model_name)
+            train_predict(model, sample_size, X_train, y_train, X_test, y_test)
 
 
 def get_model(model_name='ADABoostClassifier'):

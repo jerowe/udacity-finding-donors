@@ -14,7 +14,7 @@
       "image": "quay.io/jerowe/udacity-finding-donors-server:1.5",
       "update": true,
       "essential": true,
-      "memory": 2000,
+      "memory": 1800,
       "environment": [
         {
           "name": "DONOR_DATA",
@@ -48,7 +48,7 @@
       "image": "redis:alpine",
       "update": true,
       "essential": true,
-      "memory": 248,
+      "memory": 348,
       "mountPoints": [
       ],
       "portMappings": [

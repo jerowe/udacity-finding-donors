@@ -15,7 +15,7 @@ export class ModelExplorationComponent implements OnInit {
     'ADABoostClassifier', 'RandomForestClassifier', 'GradientBoostingClassifier'];
   public dataSize = 36178;
   // TODO Should have this as percentages
-  public potentialSampleSizes: Array<number> = [100, 1000, 10000, 20000, 30000, 36178];
+  public potentialSampleSizes: Array<number> = [100, 1000, 10000, 36178];
   public models: any = {};
   public sampleSizes: any = {};
 

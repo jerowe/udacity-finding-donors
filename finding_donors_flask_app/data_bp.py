@@ -107,10 +107,13 @@ def get_frequency_by_income():
     Return frequency of data as a function of income
     :return:
     """
-    results = {}
-    for col in object_columns:
-        g = Counter(list(data_greater_than_50k[col]))
-        l = Counter(list(data_less_than_50k[col]))
-        results[col] = {'g': g, 'l': l}
+    if redis_client.get('get-frequencies-by-income'):
+        return redis_client.get('get-frequencies-by-income').decode('utf-8')
+    else:
+        results = {}
+        for col in object_columns:
+            g = Counter(list(data_greater_than_50k[col]))
+            l = Counter(list(data_less_than_50k[col]))
+            results[col] = {'g': g, 'l': l}
 
-    return jsonify(results)
+        return jsonify(results)
