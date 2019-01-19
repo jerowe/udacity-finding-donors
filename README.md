@@ -6,6 +6,7 @@ Site deployed to AWS is [here](http://jerowe-udacity-finding-donors.us-east-2.el
 
 Python notebook is [here](https://github.com/jerowe/udacity-finding-donors/blob/master/finding_donors_flask_app/materials/finding_donors.ipynb)
 Python notebook exported as html is [here](https://github.com/jerowe/udacity-finding-donors/blob/master/finding-donors-flask-app/nginx/finding_donors.html)
+And [here](https://github.com/jerowe/udacity-finding-donors/blob/master/report.html)
 
 Python notebook exported to html is [here](http://jerowe-udacity-finding-donors.us-east-2.elasticbeanstalk.com/finding_donors.html)
 
