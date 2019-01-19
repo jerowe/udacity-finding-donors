@@ -13107,6 +13107,8 @@ It is a ratio of true positives(words classified as spam, and which are actually
 <span class="n">predicted</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">income</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">))</span>
 <span class="n">fscore</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">predicted</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">predicted</span><span class="p">))</span>
 <span class="n">fscore</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">precision</span> <span class="o">*</span> <span class="n">recall</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">precision</span> <span class="o">+</span> <span class="n">recall</span><span class="p">)</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">fscore</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span> <span class="p">(</span><span class="n">beta</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span><span class="o">*</span><span class="p">(</span> <span class="p">(</span><span class="n">precision</span><span class="o">*</span><span class="n">recall</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">beta</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">precision</span><span class="o">+</span><span class="n">recall</span><span class="p">)</span> <span class="p">)</span>
 
 <span class="c1"># Print the results </span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Naive Predictor: [Accuracy score: </span><span class="si">{:.4f}</span><span class="s2">, F-score: </span><span class="si">{:.4f}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">accuracy</span><span class="p">,</span> <span class="n">fscore</span><span class="p">))</span>
@@ -13179,27 +13181,30 @@ Naive Predictor: [Accuracy score: 0.3295, F-score: 0.3972]
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong> I wanted a mix of models, so I chose Guassian Naive Bayes, AdaBoost, and SVM.</p>
+<p><strong>Answer: </strong> I wanted a mix of models, so I chose Guassian Naive Bayes, AdaBoost, and SVM.
+This is my new favorite image - (Thanks Udacity!) <a href="https://udacity-reviews-uploads.s3.us-west-2.amazonaws.com/_attachments/155289/1530823793/ml_map.png">https://udacity-reviews-uploads.s3.us-west-2.amazonaws.com/_attachments/155289/1530823793/ml_map.png</a>
+This was another great resource - <a href="https://www.quora.com/What-are-the-advantages-of-different-classification-algorithms">https://www.quora.com/What-are-the-advantages-of-different-classification-algorithms</a>
+Gaussian Naive Bayes - <a href="https://www.quora.com/What-are-the-advantages-of-using-a-naive-Bayes-for-classification">https://www.quora.com/What-are-the-advantages-of-using-a-naive-Bayes-for-classification</a></p>
 <p><strong>Gaussian Naive Bayes</strong></p>
 <ul>
 <li>Real World: Its good for making medical decisions and text based inferences (such as mail being spam or ham). <a href="https://en.wikipedia.org/wiki/Naive_Bayes_classifier">Wiki</a></li>
 <li>Strengths: It's fast and scales well.</li>
 <li>Weaknesses: Each feature is considered independently, and it does not take into account correlations. I also read some different opinions on mixing and matching categorical with continuous features, but had a difficult time verifying that.</li>
-<li>Candidacy: We have a somewhat large dataset with a large number of features. </li>
+<li>Candidacy: We have a somewhat large dataset, ~45K rows, with a large number, 13, of features. It is fast and relatively easy to implement, and you don't need a large amount of data (&gt;100K records) to implement. It can also handle a mix of discrete and continuous data.( <a href="https://www.quora.com/What-are-the-advantages-of-using-a-naive-Bayes-for-classification">https://www.quora.com/What-are-the-advantages-of-using-a-naive-Bayes-for-classification</a> )</li>
 </ul>
 <p><strong> ADABoost </strong></p>
 <ul>
 <li>Real World: I've seen ADABoost in predicting behaviors from sequencing data. Here is an example of predicted Drug - target protein interaction. <a href="https://www.ncbi.nlm.nih.gov/pubmed/30583320">PubMed</a></li>
 <li>Strengths: ADABoost can do some feature selection for you . <a href="https://en.wikipedia.org/wiki/AdaBoost">Wiki</a></li>
 <li>Weaknesses: Sensitive to noise and outliers</li>
-<li>Candidacy: The finding donors dataset has a large number of different features.</li>
+<li>Candidacy: The finding donors dataset has a large number of different features. It is used in biology, and since I work in biology I want to understand ADA Boost better.  <a href="http://www.nickgillian.com/wiki/pmwiki.php/GRT/AdaBoost">http://www.nickgillian.com/wiki/pmwiki.php/GRT/AdaBoost</a></li>
 </ul>
 <p><strong> SVM </strong></p>
 <ul>
 <li>Real World: SVM is used in image classification. It can count worms! <a href="https://ieeexplore.ieee.org/document/6521338">Devstar</a> (SVM description is not available in the abstract, but it uses SVM) (I spend more time than I willing to admit counting worms).</li>
 <li>Strengths: SVM uses a regularization parameter to avoid overfitting. SVMs are useful for highly dimensional data, because they split the data into hyperplanes, and can keep splitting the data until an optimal classification is reached. <a href="https://en.wikipedia.org/wiki/Support_vector_machine">Wiki</a></li>
 <li>Weaknesses: It takes a long time to train. I tried all the models with various sample sizes, and this took the longest.</li>
-<li>Candidacy:  SVM models are well suited for highly dimensional data, and our data has many features.</li>
+<li>Candidacy:  SVM models are well suited for highly dimensional data, does a good job with not overfitting the data, and and our data has many features.</li>
 </ul>
 
 </div>
@@ -13230,7 +13235,7 @@ In the code block below, you will need to implement the following:</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Import two metrics from sklearn - fbeta_score and accuracy_score</span>
@@ -14110,6 +14115,7 @@ Look at the graph at the bottom left from the cell above(the visualization creat
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong> The best model is the ADABoost Classifier. It not only has the highest FScore (just under 0.9), it has the highest accuracy, and a very reasonable training time. It trains in 1.30 seconds compared to the SVM, which trains in 130 seconds.</p>
+<p>ADABoost is an adaptive algorithm, meaning it can weight noisy or non informative features by combining weak classifiers. We have 13 features, with 5 features having 50% of importance in relation to the amount of data they contribute to the model. <a href="http://www.nickgillian.com/wiki/pmwiki.php/GRT/AdaBoost">http://www.nickgillian.com/wiki/pmwiki.php/GRT/AdaBoost</a></p>
 
 </div>
 </div>
