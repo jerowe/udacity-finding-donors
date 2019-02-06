@@ -10,6 +10,10 @@ And [here](https://github.com/jerowe/udacity-finding-donors/blob/master/report.h
 
 Python notebook exported to html is [here](http://jerowe-udacity-finding-donors.us-east-2.elasticbeanstalk.com/finding_donors.html)
 
+## Blog Post
+
+If you're interested in how I configured the different web services to deploy with AWS, check out my [blog post here](https://dabble-of-devops.com/deploy-a-full-stack-web-application-with-docker-and-traefik/).
+
 ### Continuous Integration
 
 ## Build Status

@@ -13,10 +13,6 @@ services:
   traefik-manager:
     image: traefik:1.5-alpine
     restart: always
-#    command: |
-#      --web --logLevel=info \
-#      --docker --docker.domain="localhost" --docker.endpoint="unix:///var/run/docker.sock" \
-#      --docker.watch=true --docker.exposedbydefault="false"
     command: [
       "traefik",
       "--api",
